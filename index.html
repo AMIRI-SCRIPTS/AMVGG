@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BEAM BOT</title>
+    <title>AMIRI KEYS · Key Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
@@ -20,44 +20,26 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url('wallpaper 2.jfif');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-        }
-
-        /* Dark overlay for readability */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: 0;
+            padding: 1.5rem;
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
         }
 
         .container {
-            position: relative;
-            z-index: 1;
             width: 100%;
-            max-width: 900px;
-            padding: 2rem;
+            max-width: 1100px;
         }
 
-        /* ---- PASSWORD SCREEN ---- */
+        /* ===== PASSWORD SCREEN ===== */
         .password-screen {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 32px;
             padding: 3.5rem 2.5rem;
             text-align: center;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s ease;
         }
 
         .password-screen .logo {
@@ -65,26 +47,25 @@
             font-weight: 900;
             letter-spacing: -2px;
             color: #ffffff;
-            text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
-            margin-bottom: 0.5rem;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
+            margin-bottom: 0.3rem;
         }
 
         .password-screen .logo span {
-            color: #888;
-            font-weight: 300;
+            color: #ffd700;
         }
 
         .password-screen .subtitle {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 0.8rem;
             letter-spacing: 4px;
             text-transform: uppercase;
             margin-bottom: 2.5rem;
         }
 
         .password-screen .lock-icon {
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.15);
+            font-size: 2.5rem;
+            color: rgba(255, 215, 0, 0.15);
             margin-bottom: 1.5rem;
         }
 
@@ -93,7 +74,7 @@
             max-width: 320px;
             padding: 1rem 1.5rem;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 60px;
             color: white;
             font-size: 1rem;
@@ -105,19 +86,18 @@
         }
 
         .password-screen input:focus {
-            border-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 215, 0, 0.3);
             background: rgba(255, 255, 255, 0.08);
         }
 
         .password-screen input::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.15);
         }
 
         .password-screen .btn {
             margin-top: 1.2rem;
             padding: 1rem 3rem;
-            background: #ffffff;
+            background: #ffd700;
             color: #0a0a0a;
             border: none;
             border-radius: 60px;
@@ -130,7 +110,7 @@
         }
 
         .password-screen .btn:hover {
-            background: #e0e0e0;
+            background: #e6c200;
             transform: scale(1.02);
         }
 
@@ -146,17 +126,10 @@
             opacity: 1;
         }
 
-        /* ---- MAIN DASHBOARD ---- */
+        /* ===== DASHBOARD ===== */
         .dashboard {
             display: none;
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 32px;
-            padding: 2.5rem;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
@@ -170,200 +143,304 @@
             }
         }
 
-        .dashboard .top-bar {
+        /* Top Bar */
+        .top-bar {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 32px;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            margin-bottom: 2rem;
             flex-wrap: wrap;
             gap: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .dashboard .top-bar .brand {
+        .top-bar .brand {
             font-size: 1.8rem;
             font-weight: 900;
             color: #ffffff;
             letter-spacing: -1px;
         }
 
-        .dashboard .top-bar .brand span {
-            color: #555;
-            font-weight: 300;
+        .top-bar .brand span {
+            color: #ffd700;
         }
 
-        .dashboard .top-bar .user-badge {
+        .top-bar .status {
             color: rgba(255, 255, 255, 0.3);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 1px;
             padding: 0.4rem 1.2rem;
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 60px;
         }
 
-        /* ---- KEY SECTIONS ---- */
-        .keys-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1.2rem;
-            margin-bottom: 2.5rem;
+        .top-bar .status i {
+            color: #4ade80;
+            font-size: 0.5rem;
+            margin-right: 6px;
         }
 
-        @media (max-width: 768px) {
-            .keys-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .key-card {
+        /* Game Selector */
+        .game-selector {
             background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 20px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
+            border-radius: 32px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .key-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(255, 255, 255, 0.12);
-        }
-
-        .key-card .label {
+        .game-selector .label {
             color: rgba(255, 255, 255, 0.3);
             font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-        }
-
-        .key-card .count {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #ffffff;
-            line-height: 1;
-        }
-
-        .key-card .duration {
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 0.75rem;
-            margin-top: 0.3rem;
-        }
-
-        .key-card.lifetime .count {
-            color: #ffd700;
-        }
-
-        /* ---- KEY LIST ---- */
-        .key-list-section {
-            margin-bottom: 2.5rem;
-        }
-
-        .key-list-section .section-title {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             margin-bottom: 1rem;
-        }
-
-        .key-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 1.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            max-height: 180px;
-            overflow-y: auto;
-        }
-
-        .key-list::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .key-list::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 4px;
-        }
-
-        .key-list::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-
-        .key-tag {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 0.3rem 1rem;
-            border-radius: 60px;
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-family: 'Courier New', monospace;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        .key-tag.lifetime-key {
-            border-color: rgba(255, 215, 0, 0.2);
-            color: #ffd700;
-            background: rgba(255, 215, 0, 0.05);
-        }
-
-        /* ---- TEXT BOX ---- */
-        .input-section {
-            margin-top: 1rem;
-        }
-
-        .input-section textarea {
-            width: 100%;
-            padding: 1.2rem 1.5rem;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 20px;
-            color: #ffffff;
-            font-size: 0.95rem;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-            resize: vertical;
-            min-height: 120px;
-            transition: all 0.3s ease;
-        }
-
-        .input-section textarea:focus {
-            border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .input-section textarea::placeholder {
-            color: rgba(255, 255, 255, 0.15);
-        }
-
-        .input-section .label {
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.6rem;
             display: block;
         }
 
-        /* ---- RESPONSIVE ---- */
+        .game-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .game-btn {
+            padding: 0.8rem 2.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 60px;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .game-btn.active {
+            background: #ffd700;
+            color: #0a0a0a;
+            border-color: #ffd700;
+        }
+
+        /* Key Display */
+        .key-display {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .key-display .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .key-display .header .title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .key-display .header .title span {
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 400;
+            font-size: 0.85rem;
+        }
+
+        .key-display .header .actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn.danger {
+            background: rgba(255, 0, 0, 0.15);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .action-btn.danger:hover {
+            background: rgba(255, 0, 0, 0.25);
+        }
+
+        .action-btn.danger:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .action-btn.primary {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .action-btn.primary:hover {
+            background: rgba(255, 215, 0, 0.25);
+        }
+
+        /* Key Sections */
+        .key-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        @media (max-width: 900px) {
+            .key-sections {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 600px) {
-            .password-screen {
-                padding: 2rem 1.5rem;
+            .key-sections {
+                grid-template-columns: 1fr;
             }
             .password-screen .logo {
                 font-size: 2.5rem;
             }
-            .dashboard {
-                padding: 1.5rem;
-            }
-            .dashboard .top-bar .brand {
+            .top-bar .brand {
                 font-size: 1.4rem;
             }
+        }
+
+        .key-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.2rem;
+        }
+
+        .key-section .section-label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .key-section .section-label .count {
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 0.6rem;
+        }
+
+        .key-section .key-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 0.2rem;
+        }
+
+        .key-section .key-list::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .key-section .key-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+        }
+
+        .key-section .key-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+        }
+
+        .key-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 0.2rem 0.7rem;
+            border-radius: 60px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .key-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .key-item.selected {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .key-item.lifetime {
+            border-color: rgba(255, 215, 0, 0.15);
+            color: rgba(255, 215, 0, 0.6);
+        }
+
+        .key-item.lifetime.selected {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .empty-state {
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        /* No game selected */
+        .no-selection {
+            color: rgba(255, 255, 255, 0.2);
+            text-align: center;
+            padding: 3rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .no-selection i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
@@ -373,12 +450,12 @@
 
         <!-- ===== PASSWORD SCREEN ===== -->
         <div class="password-screen" id="passwordScreen">
-            <div class="lock-icon"><i class="fas fa-shield-halved"></i></div>
-            <div class="logo">BEAM <span>BOT</span></div>
-            <div class="subtitle">· secured access ·</div>
-            <input type="password" id="passwordInput" placeholder="Enter password" autofocus />
+            <div class="lock-icon"><i class="fas fa-crown"></i></div>
+            <div class="logo">AMIRI <span>KEYS</span></div>
+            <div class="subtitle">· key management system ·</div>
+            <input type="password" id="passwordInput" placeholder="Enter master password" autofocus />
             <br />
-            <button class="btn" id="unlockBtn"><i class="fas fa-arrow-right"></i> &nbsp;UNLOCK</button>
+            <button class="btn" id="unlockBtn"><i class="fas fa-unlock"></i> &nbsp;ACCESS</button>
             <div class="error-msg" id="errorMsg"><i class="fas fa-circle-exclamation"></i> &nbsp;Invalid password</div>
         </div>
 
@@ -387,35 +464,39 @@
 
             <!-- Top Bar -->
             <div class="top-bar">
-                <div class="brand">BEAM <span>BOT</span></div>
-                <div class="user-badge"><i class="fas fa-circle" style="color:#4ade80; font-size:0.5rem; margin-right:6px;"></i> authenticated</div>
+                <div class="brand">AMIRI <span>KEYS</span></div>
+                <div class="status"><i class="fas fa-circle"></i> authenticated · secure</div>
             </div>
 
-            <!-- Key Counts -->
-            <div class="keys-grid" id="keyCounts">
-                <!-- filled by JS -->
+            <!-- Game Selector -->
+            <div class="game-selector">
+                <span class="label"><i class="fas fa-gamepad"></i> &nbsp;select game</span>
+                <div class="game-buttons">
+                    <button class="game-btn" data-game="mm2"><i class="fas fa-knife"></i> &nbsp;MM2</button>
+                    <button class="game-btn" data-game="rivals"><i class="fas fa-crosshairs"></i> &nbsp;RIVALS</button>
+                </div>
             </div>
 
-            <!-- Key Lists -->
-            <div class="key-list-section">
-                <div class="section-title"><i class="fas fa-key"></i> &nbsp;1-Day Keys (20)</div>
-                <div class="key-list" id="dayKeys"></div>
-            </div>
+            <!-- Key Display -->
+            <div class="key-display" id="keyDisplay">
+                <div class="header">
+                    <div class="title" id="gameTitle">Select a game <span>to view keys</span></div>
+                    <div class="actions">
+                        <button class="action-btn danger" id="deleteSelectedBtn" disabled>
+                            <i class="fas fa-trash"></i> &nbsp;Delete Selected
+                        </button>
+                        <button class="action-btn primary" id="selectAllBtn">
+                            <i class="fas fa-check-double"></i> &nbsp;Select All
+                        </button>
+                    </div>
+                </div>
 
-            <div class="key-list-section">
-                <div class="section-title"><i class="fas fa-key"></i> &nbsp;7-Day Keys (20)</div>
-                <div class="key-list" id="weekKeys"></div>
-            </div>
-
-            <div class="key-list-section">
-                <div class="section-title"><i class="fas fa-crown" style="color:#ffd700;"></i> &nbsp;Lifetime Keys (5)</div>
-                <div class="key-list" id="lifetimeKeys"></div>
-            </div>
-
-            <!-- Text Box -->
-            <div class="input-section">
-                <span class="label"><i class="fas fa-pen"></i> &nbsp;input</span>
-                <textarea placeholder="Type your message here..."></textarea>
+                <div id="keyContent">
+                    <div class="no-selection">
+                        <i class="fas fa-arrow-up"></i>
+                        Choose a game above to manage keys
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -424,94 +505,145 @@
 
     <script>
         // ============================================================
-        // CONFIG
+        // PASSWORD
         // ============================================================
-        const PASSWORD = 'beam2026'; // <-- change this to your password
+        const MASTER_PASSWORD = 'amiri2026'; // change this
 
         // ============================================================
-        // KEY GENERATORS
+        // KEY DATA (from your files)
         // ============================================================
-        function generateKey(prefix) {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let key = prefix + '-';
-            for (let i = 0; i < 4; i++) {
-                for (let j = 0; j < 4; j++) {
-                    key += chars.charAt(Math.floor(Math.random() * chars.length));
+        const KEY_DATA = {
+            mm2: {
+                label: 'MM2',
+                sections: {
+                    '1-Day': [
+                        "MM2-1D-68DW8E1A", "MM2-1D-9F3K7M2B", "MM2-1D-4H8P9Q3C",
+                        "MM2-1D-5J2R6T4D", "MM2-1D-7L9U8V5E", "MM2-1D-2M4W6X8F",
+                        "MM2-1D-8N0Y2Z9G", "MM2-1D-3P5Q7R1H", "MM2-1D-6S8T9U2I",
+                        "MM2-1D-1V3W5X7J", "MM2-1D-9Y0Z2B4K", "MM2-1D-4C6D8E1L",
+                        "MM2-1D-7F9G0H2M", "MM2-1D-2I4J6K8N", "MM2-1D-5L7M9O1P",
+                        "MM2-1D-8Q0R2S4Q", "MM2-1D-3T5U7V9R", "MM2-1D-6W8X0Y2S",
+                        "MM2-1D-1Z3B5C7T", "MM2-1D-4D6E8F0U", "MM2-1D-7G9H1I3V",
+                        "MM2-1D-2J4K6L8W", "MM2-1D-5M7N9O1X", "MM2-1D-8P0Q2R4Y",
+                        "MM2-1D-3S5T7U9Z", "MM2-1D-6V8W0X2A", "MM2-1D-1Y3Z5B7C",
+                        "MM2-1D-4D6E8F0G", "MM2-1D-7H9I1J3K", "MM2-1D-2L4M6N8O",
+                        "MM2-1D-5P7Q9R1S", "MM2-1D-8T0U2V4W", "MM2-1D-3X5Y7Z9A",
+                        "MM2-1D-6B8C0D2E", "MM2-1D-1F3G5H7I", "MM2-1D-4J6K8L0M",
+                        "MM2-1D-7N9O1P3Q", "MM2-1D-2R4S6T8U", "MM2-1D-5V7W9X1Y",
+                        "MM2-1D-8Z0B2C4D"
+                    ],
+                    '7-Day': [
+                        "MM2-7D-6E8F9G1H", "MM2-7D-2J4K6M8N", "MM2-7D-5P7Q9R1S",
+                        "MM2-7D-8T0U2V4W", "MM2-7D-3X5Y7Z9A", "MM2-7D-6B8C0D2E",
+                        "MM2-7D-1F3G5H7I", "MM2-7D-4J6K8L0M", "MM2-7D-7N9O1P3Q",
+                        "MM2-7D-2R4S6T8U", "MM2-7D-5V7W9X1Y", "MM2-7D-8Z0B2C4D",
+                        "MM2-7D-3E5F7G9H", "MM2-7D-6I8J0K2L", "MM2-7D-1M3N5O7P",
+                        "MM2-7D-4Q6R8S0T", "MM2-7D-7U9V1W3X", "MM2-7D-2Y4Z6A8B",
+                        "MM2-7D-5C7D9E1F", "MM2-7D-8G0H2I4J", "MM2-7D-3K5L7M9N",
+                        "MM2-7D-6O8P0Q2R", "MM2-7D-1S3T5U7V", "MM2-7D-4W8X0Y2Z",
+                        "MM2-7D-7A9B1C3D", "MM2-7D-2E4G6H8I", "MM2-7D-5J7K9L1M",
+                        "MM2-7D-8N0P2Q4R", "MM2-7D-3S6T8U0V", "MM2-7D-6W9X1Y3Z"
+                    ],
+                    '30-Day': [
+                        "MM2-30D-5A7C9E1G", "MM2-30D-2I4K6M8O", "MM2-30D-7Q9R1S3T",
+                        "MM2-30D-4U6V8W0X", "MM2-30D-9Y2Z4B6D", "MM2-30D-3F5H7J9L",
+                        "MM2-30D-6N8P0Q2R", "MM2-30D-1S4T6U8V", "MM2-30D-8W0X2Y4Z",
+                        "MM2-30D-3A5C7E9G", "MM2-30D-6I8K0M2N", "MM2-30D-1P3R5T7V",
+                        "MM2-30D-4W8X0Y2Z", "MM2-30D-7A9B1C3D", "MM2-30D-2E4G6H8I",
+                        "MM2-30D-5J7K9L1M", "MM2-30D-8N0P2Q4R", "MM2-30D-3S6T8U0V",
+                        "MM2-30D-6W9X1Y3Z", "MM2-30D-1B3D5F7H", "MM2-30D-4J6L8N0P",
+                        "MM2-30D-7R9T1V3X", "MM2-30D-2Z4B6D8F", "MM2-30D-5G7I9K1M",
+                        "MM2-30D-8O0Q2S4U", "MM2-30D-3W5Y7Z9A", "MM2-30D-6C8E0G2I",
+                        "MM2-30D-1K4M6O8Q", "MM2-30D-7S9U1W3Y", "MM2-30D-4Z6B8D0F"
+                    ],
+                    'Lifetime': [
+                        "MM2-LIFETIME-AMIRI-001",
+                        "MM2-LIFETIME-AMIRI-002",
+                        "MM2-LIFETIME-AMIRI-003"
+                    ]
                 }
-                if (i < 3) key += '-';
+            },
+            rivals: {
+                label: 'RIVALS',
+                sections: {
+                    '1-Day': [
+                        "RIVALS-1D-A1B2C3D4", "RIVALS-1D-E5F6G7H8", "RIVALS-1D-I9J0K1L2",
+                        "RIVALS-1D-M3N4O5P6", "RIVALS-1D-Q7R8S9T0", "RIVALS-1D-U1V2W3X4",
+                        "RIVALS-1D-Y5Z6A7B8", "RIVALS-1D-C9D0E1F2", "RIVALS-1D-G3H4I5J6",
+                        "RIVALS-1D-K7L8M9N0", "RIVALS-1D-O1P2Q3R4", "RIVALS-1D-S5T6U7V8",
+                        "RIVALS-1D-W9X0Y1Z2", "RIVALS-1D-A3B4C5D6", "RIVALS-1D-E7F8G9H0",
+                        "RIVALS-1D-I1J2K3L4", "RIVALS-1D-M5N6O7P8", "RIVALS-1D-Q9R0S1T2",
+                        "RIVALS-1D-U3V4W5X6", "RIVALS-1D-Y7Z8A9B0", "RIVALS-1D-AB12CD34",
+                        "RIVALS-1D-EF56GH78", "RIVALS-1D-IJ90KL12", "RIVALS-1D-MN34OP56",
+                        "RIVALS-1D-QR78ST90", "RIVALS-1D-UV12WX34", "RIVALS-1D-YZ56AB78",
+                        "RIVALS-1D-CD90EF12", "RIVALS-1D-GH34IJ56", "RIVALS-1D-KL78MN90"
+                    ],
+                    '7-Day': [
+                        "RIVALS-7D-OP12QR34", "RIVALS-7D-ST56UV78", "RIVALS-7D-WX90YZ12",
+                        "RIVALS-7D-AB34CD56", "RIVALS-7D-EF78GH90", "RIVALS-7D-IJ12KL34",
+                        "RIVALS-7D-MN56OP78", "RIVALS-7D-QR90ST12", "RIVALS-7D-UV34WX56",
+                        "RIVALS-7D-YZ78AB90", "RIVALS-7D-C1D2E3F4", "RIVALS-7D-G5H6I7J8",
+                        "RIVALS-7D-K9L0M1N2", "RIVALS-7D-O3P4Q5R6", "RIVALS-7D-S7T8U9V0",
+                        "RIVALS-7D-W1X2Y3Z4", "RIVALS-7D-A5B6C7D8", "RIVALS-7D-E9F0G1H2",
+                        "RIVALS-7D-I3J4K5L6", "RIVALS-7D-M7N8O9P0", "RIVALS-7D-Q1R2S3T4",
+                        "RIVALS-7D-U5V6W7X8", "RIVALS-7D-Y9Z0A1B2", "RIVALS-7D-C3D4E5F6",
+                        "RIVALS-7D-G7H8I9J0", "RIVALS-7D-K1L2M3N4", "RIVALS-7D-O5P6Q7R8",
+                        "RIVALS-7D-S9T0U1V2", "RIVALS-7D-W3X4Y5Z6", "RIVALS-7D-A7B8C9D0",
+                        "RIVALS-7D-E1F2G3H4", "RIVALS-7D-I5J6K7L8", "RIVALS-7D-M9N0O1P2",
+                        "RIVALS-7D-Q3R4S5T6", "RIVALS-7D-U7V8W9X0", "RIVALS-7D-Y1Z2A3B4",
+                        "RIVALS-7D-C5D6E7F8", "RIVALS-7D-G9H0I1J2", "RIVALS-7D-K3L4M5N6",
+                        "RIVALS-7D-O7P8Q9R0"
+                    ],
+                    '30-Day': [
+                        "RIVALS-30D-S1T2U3V4", "RIVALS-30D-W5X6Y7Z8", "RIVALS-30D-A9B0C1D2",
+                        "RIVALS-30D-E3F4G5H6", "RIVALS-30D-I7J8K9L0", "RIVALS-30D-M1N2O3P4",
+                        "RIVALS-30D-Q5R6S7T8", "RIVALS-30D-U9V0W1X2", "RIVALS-30D-Y3Z4A5B6",
+                        "RIVALS-30D-C7D8E9F0", "RIVALS-30D-G1H2I3J4", "RIVALS-30D-K5L6M7N8",
+                        "RIVALS-30D-O9P0Q1R2", "RIVALS-30D-S3T4U5V6", "RIVALS-30D-W7X8Y9Z0",
+                        "RIVALS-30D-A1B2C3D4", "RIVALS-30D-E5F6G7H8", "RIVALS-30D-I9J0K1L2",
+                        "RIVALS-30D-M3N4O5P6", "RIVALS-30D-Q7R8S9T0", "RIVALS-30D-U1V2W3X4",
+                        "RIVALS-30D-Y5Z6A7B8", "RIVALS-30D-C9D0E1F2", "RIVALS-30D-G3H4I5J6",
+                        "RIVALS-30D-K7L8M9N0", "RIVALS-30D-O1P2Q3R4", "RIVALS-30D-S5T6U7V8",
+                        "RIVALS-30D-W9X0Y1Z2", "RIVALS-30D-A3B4C5D6", "RIVALS-30D-E7F8G9H0"
+                    ],
+                    'Lifetime': [
+                        "RIVALS-LIFETIME-MASTER-001",
+                        "RIVALS-LIFETIME-MASTER-002",
+                        "RIVALS-LIFETIME-MASTER-003"
+                    ]
+                }
             }
-            return key;
-        }
-
-        function generateKeys(count, prefix) {
-            const keys = [];
-            for (let i = 0; i < count; i++) {
-                keys.push(generateKey(prefix));
-            }
-            return keys;
-        }
-
-        // Generate all keys
-        const dayKeys = generateKeys(20, 'DAY');
-        const weekKeys = generateKeys(20, 'WK');
-        const lifetimeKeys = generateKeys(5, 'LIFE');
+        };
 
         // ============================================================
-        // RENDER UI
+        // STATE
         // ============================================================
-        function renderDashboard() {
-            // Counts
-            document.getElementById('keyCounts').innerHTML = `
-                <div class="key-card">
-                    <div class="label">1-Day Keys</div>
-                    <div class="count">${dayKeys.length}</div>
-                    <div class="duration">valid 24 hours</div>
-                </div>
-                <div class="key-card">
-                    <div class="label">7-Day Keys</div>
-                    <div class="count">${weekKeys.length}</div>
-                    <div class="duration">valid 7 days</div>
-                </div>
-                <div class="key-card lifetime">
-                    <div class="label">Lifetime Keys</div>
-                    <div class="count">${lifetimeKeys.length}</div>
-                    <div class="duration">∞ unlimited</div>
-                </div>
-            `;
-
-            // Day keys
-            const dayContainer = document.getElementById('dayKeys');
-            dayContainer.innerHTML = dayKeys.map(k => `<span class="key-tag">${k}</span>`).join('');
-
-            // Week keys
-            const weekContainer = document.getElementById('weekKeys');
-            weekContainer.innerHTML = weekKeys.map(k => `<span class="key-tag">${k}</span>`).join('');
-
-            // Lifetime keys
-            const lifeContainer = document.getElementById('lifetimeKeys');
-            lifeContainer.innerHTML = lifetimeKeys.map(k => `<span class="key-tag lifetime-key">${k}</span>`).join('');
-        }
+        let currentGame = null; // 'mm2' or 'rivals'
+        let selectedKeys = new Set();
 
         // ============================================================
-        // PASSWORD LOGIC
+        // DOM REFS
         // ============================================================
         const passwordScreen = document.getElementById('passwordScreen');
         const dashboard = document.getElementById('dashboard');
         const passwordInput = document.getElementById('passwordInput');
         const unlockBtn = document.getElementById('unlockBtn');
         const errorMsg = document.getElementById('errorMsg');
+        const gameButtons = document.querySelectorAll('.game-btn');
+        const keyContent = document.getElementById('keyContent');
+        const gameTitle = document.getElementById('gameTitle');
+        const deleteBtn = document.getElementById('deleteSelectedBtn');
+        const selectAllBtn = document.getElementById('selectAllBtn');
 
+        // ============================================================
+        // PASSWORD LOGIC
+        // ============================================================
         function attemptUnlock() {
             const entered = passwordInput.value.trim();
-            if (entered === PASSWORD) {
+            if (entered === MASTER_PASSWORD) {
                 passwordScreen.style.display = 'none';
                 dashboard.style.display = 'block';
-                renderDashboard();
-                // Log all keys to console (for your reference)
-                console.log('=== BEAM BOT KEYS ===');
-                console.log('1-Day Keys:', dayKeys);
-                console.log('7-Day Keys:', weekKeys);
-                console.log('Lifetime Keys:', lifetimeKeys);
+                passwordInput.value = '';
             } else {
                 errorMsg.classList.add('show');
                 passwordInput.value = '';
@@ -524,22 +656,150 @@
         passwordInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') attemptUnlock();
         });
+        window.addEventListener('load', () => passwordInput.focus());
 
-        // Focus on load
-        window.addEventListener('load', () => {
-            passwordInput.focus();
+        // ============================================================
+        // RENDER KEYS
+        // ============================================================
+        function renderKeys() {
+            if (!currentGame) {
+                keyContent.innerHTML = `
+                    <div class="no-selection">
+                        <i class="fas fa-arrow-up"></i>
+                        Choose a game above to manage keys
+                    </div>
+                `;
+                gameTitle.innerHTML = `Select a game <span>to view keys</span>`;
+                deleteBtn.disabled = true;
+                return;
+            }
+
+            const gameData = KEY_DATA[currentGame];
+            gameTitle.innerHTML = `${gameData.label} <span>· key management</span>`;
+
+            let html = '<div class="key-sections">';
+            const sectionOrder = ['1-Day', '7-Day', '30-Day', 'Lifetime'];
+
+            for (const sectionName of sectionOrder) {
+                const keys = gameData.sections[sectionName] || [];
+                const isLifetime = sectionName === 'Lifetime';
+                html += `
+                    <div class="key-section">
+                        <div class="section-label">
+                            ${sectionName}
+                            <span class="count">${keys.length} keys</span>
+                        </div>
+                        <div class="key-list" data-section="${sectionName}">
+                `;
+                if (keys.length === 0) {
+                    html += `<div class="empty-state">No keys available</div>`;
+                } else {
+                    for (const key of keys) {
+                        const isSelected = selectedKeys.has(key);
+                        html += `
+                            <span class="key-item ${isLifetime ? 'lifetime' : ''} ${isSelected ? 'selected' : ''}" 
+                                  data-key="${key}" 
+                                  onclick="toggleKey('${key}')">
+                                ${key}
+                            </span>
+                        `;
+                    }
+                }
+                html += `</div></div>`;
+            }
+
+            html += '</div>';
+            keyContent.innerHTML = html;
+            updateDeleteBtn();
+        }
+
+        // ============================================================
+        // KEY SELECTION
+        // ============================================================
+        function toggleKey(key) {
+            if (selectedKeys.has(key)) {
+                selectedKeys.delete(key);
+            } else {
+                selectedKeys.add(key);
+            }
+            renderKeys();
+        }
+
+        function selectAllKeys() {
+            if (!currentGame) return;
+            const gameData = KEY_DATA[currentGame];
+            const allKeys = Object.values(gameData.sections).flat();
+            for (const key of allKeys) {
+                selectedKeys.add(key);
+            }
+            renderKeys();
+        }
+
+        function deleteSelectedKeys() {
+            if (selectedKeys.size === 0 || !currentGame) return;
+            if (!confirm(`Delete ${selectedKeys.size} selected key(s)? This cannot be undone.`)) return;
+
+            const gameData = KEY_DATA[currentGame];
+            for (const sectionName in gameData.sections) {
+                gameData.sections[sectionName] = gameData.sections[sectionName].filter(
+                    key => !selectedKeys.has(key)
+                );
+            }
+            selectedKeys.clear();
+            renderKeys();
+        }
+
+        function updateDeleteBtn() {
+            deleteBtn.disabled = selectedKeys.size === 0;
+            deleteBtn.textContent = `🗑️ Delete Selected (${selectedKeys.size})`;
+        }
+
+        // ============================================================
+        // GAME SELECTION
+        // ============================================================
+        gameButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const game = this.dataset.game;
+                gameButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentGame = game;
+                selectedKeys.clear();
+                renderKeys();
+            });
         });
 
         // ============================================================
-        // PASTE KEYS (for you) - also visible in console
+        // BUTTON EVENTS
         // ============================================================
-        console.log('\n=== PASTE THESE KEYS ===\n');
-        console.log('--- 1-DAY KEYS (20) ---');
-        dayKeys.forEach((k, i) => console.log(`${i+1}. ${k}`));
-        console.log('\n--- 7-DAY KEYS (20) ---');
-        weekKeys.forEach((k, i) => console.log(`${i+1}. ${k}`));
-        console.log('\n--- LIFETIME KEYS (5) ---');
-        lifetimeKeys.forEach((k, i) => console.log(`${i+1}. ${k}`));
+        selectAllBtn.addEventListener('click', selectAllKeys);
+        deleteBtn.addEventListener('click', deleteSelectedKeys);
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        renderKeys();
+
+        // ============================================================
+        // KEYBOARD SHORTCUTS
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'a') {
+                e.preventDefault();
+                if (dashboard.style.display === 'block') {
+                    selectAllKeys();
+                }
+            }
+            if (e.key === 'Delete' || e.key === 'Backspace') {
+                if (selectedKeys.size > 0 && dashboard.style.display === 'block') {
+                    deleteSelectedKeys();
+                }
+            }
+        });
+
+        console.log('=== AMIRI KEYS SYSTEM LOADED ===');
+        console.log('Password:', MASTER_PASSWORD);
+        console.log('Total MM2 Keys:', Object.values(KEY_DATA.mm2.sections).flat().length);
+        console.log('Total RIVALS Keys:', Object.values(KEY_DATA.rivals.sections).flat().length);
     </script>
 
 </body>
