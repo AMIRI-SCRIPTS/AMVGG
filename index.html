@@ -1,806 +1,1063 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AMIRI KEYS · Key Management</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AMIRI SCRIPTS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            background: #0a0a0a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
-            background-image: radial-gradient(circle at 20% 30%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
-                              radial-gradient(circle at 80% 70%, rgba(0, 255, 0, 0.03) 0%, transparent 50%);
-        }
+    body {
+      background: #0b0e0f;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1.5rem;
+      overflow-x: hidden;
+    }
 
-        .container {
-            width: 100%;
-            max-width: 1100px;
-        }
+    .container {
+      max-width: 1300px;
+      width: 100%;
+      background: #13171a;
+      border-radius: 2.5rem;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px #2a3a2a;
+      transition: all 0.2s ease;
+      position: relative;
+      z-index: 10;
+    }
 
-        /* ===== PASSWORD SCREEN ===== */
-        .password-screen {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 32px;
-            padding: 3.5rem 2.5rem;
-            text-align: center;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-        }
+    .lime-text { color: #b4ff5c; }
+    .lime-bg {
+      background: #b4ff5c;
+      color: #0b0e0f;
+      font-weight: 700;
+    }
+    .lime-bg:hover {
+      background: #9ee64a;
+      transform: scale(1.02);
+      box-shadow: 0 0 20px #b4ff5c88;
+    }
 
-        .password-screen .logo {
-            font-size: 3.5rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-            color: #ffffff;
-            text-shadow: 0 0 40px rgba(0, 255, 0, 0.1);
-            margin-bottom: 0.3rem;
-        }
+    /* PAGE DISPLAYS */
+    #startPage { display: block; position: relative; }
+    #productSelectionPage { display: none; }
+    #rivalsProPage { display: none; }
+    #mm2ProPage { display: none; }
 
-        .password-screen .logo span {
-            color: #00ff15;
-        }
+    /* ================= PARTICLES BACKGROUND ================= */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-        .password-screen .subtitle {
-            color: rgba(255, 255, 255, 0.25);
-            font-size: 0.8rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 2.5rem;
-        }
+    /* ================= UNIFIED TOP NAVIGATION BAR ================= */
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      width: 100%;
+      background: #0d1215;
+      border-radius: 60px;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid #1f2f1f;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 20;
+    }
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: #9bb89b;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.6rem 1.8rem;
+      border-radius: 40px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 1 auto;
+    }
+    .nav-btn:hover {
+      color: #b4ff5c;
+      background: #1f2a1f;
+      transform: translateY(-2px);
+    }
+    .nav-btn.active {
+      color: #b4ff5c;
+      background: #1f2a1f;
+      border: 1px solid #3a5a3a;
+    }
 
-        .password-screen .lock-icon {
-            font-size: 2.5rem;
-            color: rgba(0, 255, 0, 0.15);
-            margin-bottom: 1.5rem;
-        }
+    /* ================= START PAGE ================= */
+    .start-hero {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      padding: 1rem 0rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
 
-        .password-screen input {
-            width: 100%;
-            max-width: 320px;
-            padding: 1rem 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 60px;
-            color: white;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-            transition: all 0.3s ease;
-            text-align: center;
-            letter-spacing: 2px;
-        }
+    /* Top Logo - BIGGER & NO GLOW */
+    .top-logo-container {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 2rem;
+      flex-basis: 100%;
+    }
+    .top-logo-container img {
+      max-height: 200px; /* Made bigger */
+      width: auto;
+      transition: transform 0.2s ease;
+    }
+    .top-logo-container img:hover {
+      transform: scale(1.05);
+    }
 
-        .password-screen input:focus {
-            border-color: rgba(0, 255, 0, 0.3);
-            background: rgba(255, 255, 255, 0.08);
-        }
+    /* Left/Content Column - Buttons PERFECTLY CENTERED */
+    .start-content {
+      flex: 1 1 45%;
+      padding-right: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .start-content .tagline {
+      font-size: 1.2rem;
+      color: #9bb89b;
+      letter-spacing: 2px;
+      margin-bottom: 2rem;
+    }
+    .btn-hero {
+      padding: 1rem 3.5rem;
+      border-radius: 60px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      background: #b4ff5c;
+      color: #0b0e0f;
+      box-shadow: 0 6px 0 #5f8233;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+      margin-top: 0.5rem;
+    }
+    .btn-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 0 #5f8233;
+      background: #c9ff7a;
+    }
 
-        .password-screen input::placeholder {
-            color: rgba(255, 255, 255, 0.15);
-        }
+    /* Discord Button */
+    .btn-discord {
+      margin-top: 1.2rem;
+      padding: 0.9rem 2.8rem;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      background: #5865F2;
+      color: #ffffff;
+      box-shadow: 0 6px 0 #3b45a3;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      width: fit-content;
+    }
+    .btn-discord:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 0 #3b45a3;
+      background: #6b79ff;
+    }
 
-        .password-screen .btn {
-            margin-top: 1.2rem;
-            padding: 1rem 3rem;
-            background: #00ff26;
-            color: #0a0a0a;
-            border: none;
-            border-radius: 60px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-        }
+    /* Right Column: Character Image - NO SHADOW, full bleed */
+    .start-image-container {
+      flex: 1 1 45%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      overflow: hidden;
+    }
+    .start-image-container img {
+      max-width: 100%;
+      height: auto;
+      max-height: 450px;
+      display: block;
+      /* removed drop-shadow */
+      transition: transform 0.3s ease;
+    }
+    .start-image-container img:hover {
+      transform: scale(1.02);
+    }
 
-        .password-screen .btn:hover {
-            background: #00ff1a;
-            transform: scale(1.02);
-        }
+    .start-footer {
+      margin-top: 3rem;
+      color: #4a6a4a;
+      font-size: 0.9rem;
+      border-top: 1px solid #1f2f1f;
+      padding-top: 1.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      width: 100%;
+    }
 
-        .password-screen .error-msg {
-            color: #00ff11;
-            font-size: 0.85rem;
-            margin-top: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+    /* ================= POPUP ================= */
+    #discordPopup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .popup-box {
+      background: #13171a;
+      border: 2px solid #b4ff5c;
+      border-radius: 2rem;
+      padding: 2.5rem 3rem;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 0 50px #b4ff5c33;
+      animation: floatGlow 3s ease-in-out infinite;
+    }
+    @keyframes floatGlow {
+      0%, 100% { box-shadow: 0 0 30px #b4ff5c33; }
+      50% { box-shadow: 0 0 60px #b4ff5c66; }
+    }
+    .popup-box h2 {
+      color: #b4ff5c;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .popup-box p {
+      color: #9bb89b;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .popup-box .popup-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: #5a7a5a;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+      background: none;
+      border: none;
+      font-weight: bold;
+    }
+    .popup-box .popup-close:hover {
+      color: #b4ff5c;
+      transform: rotate(90deg);
+    }
+    .popup-box .btn-discord-popup {
+      margin-top: 1.5rem;
+      padding: 0.8rem 2.5rem;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      background: #5865F2;
+      color: #ffffff;
+      transition: 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .popup-box .btn-discord-popup:hover {
+      background: #6b79ff;
+      transform: scale(1.03);
+    }
 
-        .password-screen .error-msg.show {
-            opacity: 1;
-        }
+    /* ================= SHARED PRODUCT STYLES ================= */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #2b3a2b;
+      padding-bottom: 1rem;
+    }
+    .brand i {
+      font-size: 2.2rem;
+      color: #b4ff5c;
+      filter: drop-shadow(0 0 6px #6f9e3a);
+    }
+    .brand h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #e6eee6;
+    }
+    .brand h1 span {
+      font-weight: 300;
+      color: #9bb89b;
+      margin-left: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .badge {
+      margin-left: auto;
+      background: #1f2a1f;
+      padding: 0.25rem 1.2rem;
+      border-radius: 40px;
+      border: 1px solid #3a5a3a;
+      color: #b4ff5c;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    .badge i {
+      font-size: 0.6rem;
+      color: #b4ff5c;
+      margin-right: 6px;
+    }
 
-        /* ===== DASHBOARD ===== */
-        .dashboard {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
+    .product-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+    .product-image-wrapper {
+      flex: 1 1 300px;
+      background: #1e2629;
+      border-radius: 2rem;
+      padding: 0.8rem;
+      border: 1px solid #2f4030;
+      box-shadow: inset 0 0 18px #0f1416;
+      transition: 0.25s;
+    }
+    .product-image-wrapper:hover {
+      border-color: #b4ff5c88;
+      transform: scale(1.01);
+    }
+    .product-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 1.2rem;
+      background: #0f1416;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      box-shadow: 0 8px 20px #00000066;
+      border: 1px solid #2a3a2a;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .buy-section {
+      flex: 1 1 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+    .buy-section h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #e6eee6;
+    }
+    .buy-section .sub {
+      color: #9bb89b;
+      font-size: 1rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2.8rem;
+      border-radius: 60px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.3px;
+      width: fit-content;
+      box-shadow: 0 4px 12px #00000055;
+    }
+    .btn i { margin-right: 10px; }
 
-        /* Top Bar */
-        .top-bar {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 32px;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
+    .collapse-section {
+      background: #101618;
+      border-radius: 2rem;
+      margin: 2rem 0 2.5rem 0;
+      border-left: 6px solid #b4ff5c;
+      overflow: hidden;
+      box-shadow: inset 0 0 30px #050808;
+    }
+    .collapse-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .collapse-header:hover { background: #1a2424; }
+    .collapse-header h3 {
+      font-size: 1.5rem;
+      color: #e6eee6;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .collapse-header h3 i { color: #b4ff5c; }
+    .collapse-header .arrow {
+      color: #b4ff5c;
+      font-size: 1.4rem;
+      transition: transform 0.25s ease;
+    }
+    .collapse-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 2rem;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+    }
+    .collapse-content.open {
+      max-height: 1800px;
+      opacity: 1;
+      padding: 0.5rem 2rem 2rem 2rem;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem 2rem;
+      margin-top: 0.8rem;
+    }
+    .feature-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 0.4rem 0;
+      border-bottom: 1px dashed #273327;
+      color: #b8d0b8;
+    }
+    .feature-item i {
+      color: #b4ff5c;
+      width: 1.4rem;
+      font-size: 1rem;
+    }
+    .feature-item strong { color: #d4f0d4; font-weight: 600; }
+    .feature-item span { color: #b8d0b8; font-size: 0.95rem; }
 
-        .top-bar .brand {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: -1px;
-        }
+    .pricing-page {
+      display: none;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 2px solid #1f2f1f;
+    }
+    .pricing-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 2rem 0 2.5rem 0;
+    }
+    .price-card {
+      background: #1a2124;
+      border-radius: 2rem;
+      padding: 1.8rem 1.6rem;
+      min-width: 170px;
+      flex: 1 0 150px;
+      border: 1px solid #2d402d;
+      text-align: center;
+      transition: 0.15s;
+      box-shadow: 0 6px 0 #0b0f0f;
+    }
+    .price-card:hover {
+      border-color: #b4ff5c;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 0 #0b0f0f;
+    }
+    .price-card .key-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #9bb89b;
+    }
+    .price-card .price {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #b4ff5c;
+      margin: 0.5rem 0 0.8rem 0;
+    }
+    .price-card .price small {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #8aaa8a;
+    }
+    .price-card .btn-buy-key {
+      background: #b4ff5c;
+      border: none;
+      padding: 0.6rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 700;
+      color: #0b0e0f;
+      cursor: pointer;
+      transition: 0.15s;
+      font-size: 0.95rem;
+      width: 100%;
+      margin-top: 0.3rem;
+    }
+    .price-card .btn-buy-key:hover { background: #c9ff7a; transform: scale(1.02); }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: #b4ff5c;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 2px solid transparent;
+      transition: 0.15s;
+    }
+    .back-link:hover { border-bottom-color: #b4ff5c; }
 
-        .top-bar .brand span {
-            color: #18f000;
-        }
+    .footer-script {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #1f2f1f;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      color: #6f8f6f;
+      font-size: 0.85rem;
+    }
+    .footer-script span {
+      background: #0d1414;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-family: monospace;
+      color: #b4ff5c;
+      border: 1px solid #2b412b;
+    }
 
-        .top-bar .status {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            padding: 0.4rem 1.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 60px;
-        }
+    /* PRODUCT SELECTION PAGE */
+    .selection-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .selection-header h2 {
+      font-size: 2.2rem;
+      color: #e6eee6;
+    }
+    .selection-header p {
+      color: #9bb89b;
+      margin-top: 0.5rem;
+    }
+    .selection-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .selection-card {
+      background: #1a2124;
+      border-radius: 2rem;
+      padding: 1.5rem;
+      width: 300px;
+      border: 1px solid #2d402d;
+      text-align: center;
+      transition: 0.2s;
+      cursor: pointer;
+      box-shadow: 0 6px 0 #0b0f0f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .selection-card:hover {
+      border-color: #b4ff5c;
+      transform: translateY(-6px);
+      box-shadow: 0 12px 0 #0b0f0f;
+    }
+    .selection-card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 1.2rem;
+      margin-bottom: 1rem;
+      border: 1px solid #2a3a2a;
+      background: #0f1416;
+    }
+    .selection-card h3 {
+      color: #e6eee6;
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+    .selection-card span {
+      color: #9bb89b;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .selection-card .btn-select {
+      background: #b4ff5c;
+      border: none;
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      font-weight: 700;
+      color: #0b0e0f;
+      cursor: pointer;
+      transition: 0.15s;
+      font-size: 1rem;
+      width: 100%;
+    }
+    .selection-card .btn-select:hover { background: #c9ff7a; transform: scale(1.02); }
 
-        .top-bar .status i {
-            color: #4ade80;
-            font-size: 0.5rem;
-            margin-right: 6px;
-        }
-
-        /* Game Selector */
-        .game-selector {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 32px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .game-selector .label {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .game-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .game-btn {
-            padding: 0.8rem 2.5rem;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 60px;
-            color: rgba(255, 255, 255, 0.5);
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .game-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #ffffff;
-        }
-
-        .game-btn.active {
-            background: #0dff00;
-            color: #0a0a0a;
-            border-color: #0dff00;
-        }
-
-        /* Key Display */
-        .key-display {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 32px;
-            padding: 2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .key-display .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .key-display .header .title {
-            color: #ffffff;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .key-display .header .title span {
-            color: rgba(255, 255, 255, 0.3);
-            font-weight: 400;
-            font-size: 0.85rem;
-        }
-
-        .key-display .header .actions {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            padding: 0.5rem 1.2rem;
-            border-radius: 60px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 0.8rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn.danger {
-            background: rgba(255, 0, 0, 0.15);
-            color: #00ff48;
-            border: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        .action-btn.danger:hover {
-            background: rgba(255, 0, 0, 0.25);
-        }
-
-        .action-btn.danger:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .action-btn.primary {
-            background: rgba(0, 255, 0, 0.15);
-            color: #0dff00;
-            border: 1px solid rgba(0, 255, 0, 0.1);
-        }
-
-        .action-btn.primary:hover {
-            background: rgba(0, 255, 0, 0.25);
-        }
-
-        /* Key Sections */
-        .key-sections {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1.2rem;
-        }
-
-        @media (max-width: 900px) {
-            .key-sections {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .key-sections {
-                grid-template-columns: 1fr;
-            }
-            .password-screen .logo {
-                font-size: 2.5rem;
-            }
-            .top-bar .brand {
-                font-size: 1.4rem;
-            }
-        }
-
-        .key-section {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 1.2rem;
-        }
-
-        .key-section .section-label {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .key-section .section-label .count {
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 0.6rem;
-        }
-
-        .key-section .key-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 0.2rem;
-        }
-
-        .key-section .key-list::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        .key-section .key-list::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 4px;
-        }
-
-        .key-section .key-list::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
-        }
-
-        .key-item {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 0.2rem 0.7rem;
-            border-radius: 60px;
-            font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-family: 'Courier New', monospace;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            user-select: none;
-            white-space: nowrap;
-        }
-
-        .key-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .key-item.selected {
-            background: rgba(0, 255, 0, 0.15);
-            border-color: #0dff00;
-            color: #0dff00;
-        }
-
-        .key-item.lifetime {
-            border-color: rgba(0, 255, 0, 0.15);
-            color: rgba(0, 255, 0, 0.6);
-        }
-
-        .key-item.lifetime.selected {
-            background: rgba(0, 255, 0, 0.2);
-            border-color: #0dff00;
-            color: #0dff00;
-        }
-
-        .empty-state {
-            color: rgba(255, 255, 255, 0.1);
-            font-size: 0.75rem;
-            text-align: center;
-            padding: 1rem;
-            width: 100%;
-        }
-
-        /* No game selected */
-        .no-selection {
-            color: rgba(255, 255, 255, 0.2);
-            text-align: center;
-            padding: 3rem 1rem;
-            font-size: 0.9rem;
-        }
-
-        .no-selection i {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.05);
-        }
-    </style>
+    /* Responsive Layout */
+    @media (max-width: 900px) {
+      .top-nav { gap: 0.3rem; padding: 0.3rem 0.5rem; }
+      .nav-btn { font-size: 0.85rem; padding: 0.4rem 1rem; }
+      .start-hero { flex-direction: column; text-align: center; }
+      .start-content { padding-right: 0; align-items: center; width: 100%; }
+      .start-image-container { 
+        justify-content: center; 
+        margin-top: 1.5rem; 
+        width: 100%;
+      }
+      .btn-hero, .btn-discord { width: 100%; justify-content: center; }
+    }
+    @media (max-width: 700px) {
+      .container { padding: 1.5rem; }
+      .top-logo-container img { max-height: 150px; }
+      .brand h1 { font-size: 1.6rem; }
+      .btn { width: 100%; text-align: center; }
+      .product-image-wrapper { flex: 1 1 100%; }
+      .price-card { flex: 1 0 130px; }
+      .selection-card { width: 100%; max-width: 350px; }
+      .popup-box { padding: 1.8rem; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
+  <!-- BACKGROUND PARTICLES -->
+  <canvas id="particles-canvas"></canvas>
 
-        <!-- ===== PASSWORD SCREEN ===== -->
-        <div class="password-screen" id="passwordScreen">
-            <div class="lock-icon"><i class="fas fa-crown"></i></div>
-            <div class="logo">AMIRI <span>KEYS</span></div>
-            <div class="subtitle">· key management system ·</div>
-            <input type="password" id="passwordInput" placeholder="Enter master password" autofocus />
-            <br />
-            <button class="btn" id="unlockBtn"><i class="fas fa-unlock"></i> &nbsp;ACCESS</button>
-            <div class="error-msg" id="errorMsg"><i class="fas fa-circle-exclamation"></i> &nbsp;Invalid password</div>
+  <!-- DISCORD POPUP -->
+  <div id="discordPopup">
+    <div class="popup-box">
+      <button class="popup-close" onclick="closePopup()">✕</button>
+      <i class="fab fa-discord" style="font-size: 3.5rem; color: #b4ff5c; margin-bottom: 10px;"></i>
+      <h2>🎁 FREE KEYS IN DISCORD</h2>
+      <p>Apply for a free day key in Discord<br><strong>(1-day response time)</strong></p>
+      <a href="https://discord.gg/mBB7sVzp3N" target="_blank" class="btn-discord-popup">
+        <i class="fab fa-discord"></i> Join Discord Now
+      </a>
+    </div>
+  </div>
+
+<div class="container">
+
+  <!-- UNIFIED TOP NAVIGATION BAR -->
+  <div class="top-nav">
+    <button class="nav-btn active" onclick="showStart()" id="navHome">
+      <i class="fas fa-home"></i> Home
+    </button>
+    <button class="nav-btn" onclick="showSelection()" id="navProducts">
+      <i class="fas fa-box"></i> Products
+    </button>
+    <button class="nav-btn" onclick="window.open('https://discord.gg/mBB7sVzp3N', '_blank')">
+      <i class="fab fa-discord"></i> Discord
+    </button>
+  </div>
+
+  <!-- START PAGE -->
+  <div id="startPage">
+    <div class="start-hero">
+      
+      <!-- TOP LOGO - BIGGER & NO GLOW -->
+      <div class="top-logo-container">
+        <img src="cde55854-5534-4814-9a1c-fbda63bcba1d.jpg" alt="AMIRI Logo" />
+      </div>
+
+      <!-- LEFT SIDE: Buttons (Perfectly Centered) -->
+      <div class="start-content">
+        <p class="tagline">execution hub · premium scripts</p>
+        
+        <button class="btn-hero" onclick="showSelection()">
+          <i class="fas fa-eye"></i> VIEW PRODUCTS
+        </button>
+        
+        <a href="https://discord.gg/mBB7sVzp3N" target="_blank" class="btn-discord">
+          <i class="fab fa-discord"></i> JOIN OUR DISCORD
+        </a>
+
+        <div style="margin-top: 1.5rem; color: #4a6a4a; font-size: 0.9rem;">
+          <i class="fas fa-shield-alt" style="color: #b4ff5c;"></i> undetected · trusted · fast
         </div>
+      </div>
 
-        <!-- ===== DASHBOARD ===== -->
-        <div class="dashboard" id="dashboard">
-
-            <!-- Top Bar -->
-            <div class="top-bar">
-                <div class="brand">AMIRI <span>KEYS</span></div>
-                <div class="status"><i class="fas fa-circle"></i> authenticated · secure</div>
-            </div>
-
-            <!-- Game Selector -->
-            <div class="game-selector">
-                <span class="label"><i class="fas fa-gamepad"></i> &nbsp;select game</span>
-                <div class="game-buttons">
-                    <button class="game-btn" data-game="mm2"><i class="fas fa-knife"></i> &nbsp;MM2</button>
-                    <button class="game-btn" data-game="rivals"><i class="fas fa-crosshairs"></i> &nbsp;RIVALS</button>
-                </div>
-            </div>
-
-            <!-- Key Display -->
-            <div class="key-display" id="keyDisplay">
-                <div class="header">
-                    <div class="title" id="gameTitle">Select a game <span>to view keys</span></div>
-                    <div class="actions">
-                        <button class="action-btn danger" id="deleteSelectedBtn" disabled>
-                            <i class="fas fa-trash"></i> &nbsp;Delete Selected
-                        </button>
-                        <button class="action-btn primary" id="selectAllBtn">
-                            <i class="fas fa-check-double"></i> &nbsp;Select All
-                        </button>
-                    </div>
-                </div>
-
-                <div id="keyContent">
-                    <div class="no-selection">
-                        <i class="fas fa-arrow-up"></i>
-                        Choose a game above to manage keys
-                    </div>
-                </div>
-            </div>
-
-        </div>
+      <!-- RIGHT SIDE: Character Image (No shadow, full bleed) -->
+      <div class="start-image-container">
+        <img src="2645027a-7d52-4364-928c-8cc646414bc5.jpg" alt="Showcase" />
+      </div>
 
     </div>
+    <div class="start-footer">
+      <span><i class="fas fa-circle" style="color: #b4ff5c; font-size: 0.5rem;"></i> 24/7 support</span>
+      <span><i class="fas fa-circle" style="color: #b4ff5c; font-size: 0.5rem;"></i> instant delivery</span>
+      <span><i class="fas fa-circle" style="color: #b4ff5c; font-size: 0.5rem;"></i> lifetime updates</span>
+    </div>
+  </div>
 
-    <script>
-        // ============================================================
-        // PASSWORD
-        // ============================================================
-        const MASTER_PASSWORD = 'amiri2026'; // change this
+  <!-- PRODUCT SELECTION PAGE -->
+  <div id="productSelectionPage">
+    <div class="brand">
+      <i class="fas fa-bolt"></i>
+      <h1>AMIRI <span>| Product Hub</span></h1>
+    </div>
 
-        // ============================================================
-        // KEY DATA (from your files)
-        // ============================================================
-        const KEY_DATA = {
-            mm2: {
-                label: 'MM2',
-                sections: {
-                    '1-Day': [
-                        "MM2-1D-68DW8E1A", "MM2-1D-9F3K7M2B", "MM2-1D-4H8P9Q3C",
-                        "MM2-1D-5J2R6T4D", "MM2-1D-7L9U8V5E", "MM2-1D-2M4W6X8F",
-                        "MM2-1D-8N0Y2Z9G", "MM2-1D-3P5Q7R1H", "MM2-1D-6S8T9U2I",
-                        "MM2-1D-1V3W5X7J", "MM2-1D-9Y0Z2B4K", "MM2-1D-4C6D8E1L",
-                        "MM2-1D-7F9G0H2M", "MM2-1D-2I4J6K8N", "MM2-1D-5L7M9O1P",
-                        "MM2-1D-8Q0R2S4Q", "MM2-1D-3T5U7V9R", "MM2-1D-6W8X0Y2S",
-                        "MM2-1D-1Z3B5C7T", "MM2-1D-4D6E8F0U", "MM2-1D-7G9H1I3V",
-                        "MM2-1D-2J4K6L8W", "MM2-1D-5M7N9O1X", "MM2-1D-8P0Q2R4Y",
-                        "MM2-1D-3S5T7U9Z", "MM2-1D-6V8W0X2A", "MM2-1D-1Y3Z5B7C",
-                        "MM2-1D-4D6E8F0G", "MM2-1D-7H9I1J3K", "MM2-1D-2L4M6N8O",
-                        "MM2-1D-5P7Q9R1S", "MM2-1D-8T0U2V4W", "MM2-1D-3X5Y7Z9A",
-                        "MM2-1D-6B8C0D2E", "MM2-1D-1F3G5H7I", "MM2-1D-4J6K8L0M",
-                        "MM2-1D-7N9O1P3Q", "MM2-1D-2R4S6T8U", "MM2-1D-5V7W9X1Y",
-                        "MM2-1D-8Z0B2C4D"
-                    ],
-                    '7-Day': [
-                        "MM2-7D-6E8F9G1H", "MM2-7D-2J4K6M8N", "MM2-7D-5P7Q9R1S",
-                        "MM2-7D-8T0U2V4W", "MM2-7D-3X5Y7Z9A", "MM2-7D-6B8C0D2E",
-                        "MM2-7D-1F3G5H7I", "MM2-7D-4J6K8L0M", "MM2-7D-7N9O1P3Q",
-                        "MM2-7D-2R4S6T8U", "MM2-7D-5V7W9X1Y", "MM2-7D-8Z0B2C4D",
-                        "MM2-7D-3E5F7G9H", "MM2-7D-6I8J0K2L", "MM2-7D-1M3N5O7P",
-                        "MM2-7D-4Q6R8S0T", "MM2-7D-7U9V1W3X", "MM2-7D-2Y4Z6A8B",
-                        "MM2-7D-5C7D9E1F", "MM2-7D-8G0H2I4J", "MM2-7D-3K5L7M9N",
-                        "MM2-7D-6O8P0Q2R", "MM2-7D-1S3T5U7V", "MM2-7D-4W8X0Y2Z",
-                        "MM2-7D-7A9B1C3D", "MM2-7D-2E4G6H8I", "MM2-7D-5J7K9L1M",
-                        "MM2-7D-8N0P2Q4R", "MM2-7D-3S6T8U0V", "MM2-7D-6W9X1Y3Z"
-                    ],
-                    '30-Day': [
-                        "MM2-30D-5A7C9E1G", "MM2-30D-2I4K6M8O", "MM2-30D-7Q9R1S3T",
-                        "MM2-30D-4U6V8W0X", "MM2-30D-9Y2Z4B6D", "MM2-30D-3F5H7J9L",
-                        "MM2-30D-6N8P0Q2R", "MM2-30D-1S4T6U8V", "MM2-30D-8W0X2Y4Z",
-                        "MM2-30D-3A5C7E9G", "MM2-30D-6I8K0M2N", "MM2-30D-1P3R5T7V",
-                        "MM2-30D-4W8X0Y2Z", "MM2-30D-7A9B1C3D", "MM2-30D-2E4G6H8I",
-                        "MM2-30D-5J7K9L1M", "MM2-30D-8N0P2Q4R", "MM2-30D-3S6T8U0V",
-                        "MM2-30D-6W9X1Y3Z", "MM2-30D-1B3D5F7H", "MM2-30D-4J6L8N0P",
-                        "MM2-30D-7R9T1V3X", "MM2-30D-2Z4B6D8F", "MM2-30D-5G7I9K1M",
-                        "MM2-30D-8O0Q2S4U", "MM2-30D-3W5Y7Z9A", "MM2-30D-6C8E0G2I",
-                        "MM2-30D-1K4M6O8Q", "MM2-30D-7S9U1W3Y", "MM2-30D-4Z6B8D0F"
-                    ],
-                    'Lifetime': [
-                        "MM2-LIFETIME-AMIRI-001",
-                        "MM2-LIFETIME-AMIRI-002",
-                        "MM2-LIFETIME-AMIRI-003"
-                    ]
-                }
-            },
-            rivals: {
-                label: 'RIVALS',
-                sections: {
-                    '1-Day': [
-                        "RIVALS-1D-A1B2C3D4", "RIVALS-1D-E5F6G7H8", "RIVALS-1D-I9J0K1L2",
-                        "RIVALS-1D-M3N4O5P6", "RIVALS-1D-Q7R8S9T0", "RIVALS-1D-U1V2W3X4",
-                        "RIVALS-1D-Y5Z6A7B8", "RIVALS-1D-C9D0E1F2", "RIVALS-1D-G3H4I5J6",
-                        "RIVALS-1D-K7L8M9N0", "RIVALS-1D-O1P2Q3R4", "RIVALS-1D-S5T6U7V8",
-                        "RIVALS-1D-W9X0Y1Z2", "RIVALS-1D-A3B4C5D6", "RIVALS-1D-E7F8G9H0",
-                        "RIVALS-1D-I1J2K3L4", "RIVALS-1D-M5N6O7P8", "RIVALS-1D-Q9R0S1T2",
-                        "RIVALS-1D-U3V4W5X6", "RIVALS-1D-Y7Z8A9B0", "RIVALS-1D-AB12CD34",
-                        "RIVALS-1D-EF56GH78", "RIVALS-1D-IJ90KL12", "RIVALS-1D-MN34OP56",
-                        "RIVALS-1D-QR78ST90", "RIVALS-1D-UV12WX34", "RIVALS-1D-YZ56AB78",
-                        "RIVALS-1D-CD90EF12", "RIVALS-1D-GH34IJ56", "RIVALS-1D-KL78MN90"
-                    ],
-                    '7-Day': [
-                        "RIVALS-7D-OP12QR34", "RIVALS-7D-ST56UV78", "RIVALS-7D-WX90YZ12",
-                        "RIVALS-7D-AB34CD56", "RIVALS-7D-EF78GH90", "RIVALS-7D-IJ12KL34",
-                        "RIVALS-7D-MN56OP78", "RIVALS-7D-QR90ST12", "RIVALS-7D-UV34WX56",
-                        "RIVALS-7D-YZ78AB90", "RIVALS-7D-C1D2E3F4", "RIVALS-7D-G5H6I7J8",
-                        "RIVALS-7D-K9L0M1N2", "RIVALS-7D-O3P4Q5R6", "RIVALS-7D-S7T8U9V0",
-                        "RIVALS-7D-W1X2Y3Z4", "RIVALS-7D-A5B6C7D8", "RIVALS-7D-E9F0G1H2",
-                        "RIVALS-7D-I3J4K5L6", "RIVALS-7D-M7N8O9P0", "RIVALS-7D-Q1R2S3T4",
-                        "RIVALS-7D-U5V6W7X8", "RIVALS-7D-Y9Z0A1B2", "RIVALS-7D-C3D4E5F6",
-                        "RIVALS-7D-G7H8I9J0", "RIVALS-7D-K1L2M3N4", "RIVALS-7D-O5P6Q7R8",
-                        "RIVALS-7D-S9T0U1V2", "RIVALS-7D-W3X4Y5Z6", "RIVALS-7D-A7B8C9D0",
-                        "RIVALS-7D-E1F2G3H4", "RIVALS-7D-I5J6K7L8", "RIVALS-7D-M9N0O1P2",
-                        "RIVALS-7D-Q3R4S5T6", "RIVALS-7D-U7V8W9X0", "RIVALS-7D-Y1Z2A3B4",
-                        "RIVALS-7D-C5D6E7F8", "RIVALS-7D-G9H0I1J2", "RIVALS-7D-K3L4M5N6",
-                        "RIVALS-7D-O7P8Q9R0"
-                    ],
-                    '30-Day': [
-                        "RIVALS-30D-S1T2U3V4", "RIVALS-30D-W5X6Y7Z8", "RIVALS-30D-A9B0C1D2",
-                        "RIVALS-30D-E3F4G5H6", "RIVALS-30D-I7J8K9L0", "RIVALS-30D-M1N2O3P4",
-                        "RIVALS-30D-Q5R6S7T8", "RIVALS-30D-U9V0W1X2", "RIVALS-30D-Y3Z4A5B6",
-                        "RIVALS-30D-C7D8E9F0", "RIVALS-30D-G1H2I3J4", "RIVALS-30D-K5L6M7N8",
-                        "RIVALS-30D-O9P0Q1R2", "RIVALS-30D-S3T4U5V6", "RIVALS-30D-W7X8Y9Z0",
-                        "RIVALS-30D-A1B2C3D4", "RIVALS-30D-E5F6G7H8", "RIVALS-30D-I9J0K1L2",
-                        "RIVALS-30D-M3N4O5P6", "RIVALS-30D-Q7R8S9T0", "RIVALS-30D-U1V2W3X4",
-                        "RIVALS-30D-Y5Z6A7B8", "RIVALS-30D-C9D0E1F2", "RIVALS-30D-G3H4I5J6",
-                        "RIVALS-30D-K7L8M9N0", "RIVALS-30D-O1P2Q3R4", "RIVALS-30D-S5T6U7V8",
-                        "RIVALS-30D-W9X0Y1Z2", "RIVALS-30D-A3B4C5D6", "RIVALS-30D-E7F8G9H0"
-                    ],
-                    'Lifetime': [
-                        "RIVALS-LIFETIME-MASTER-001",
-                        "RIVALS-LIFETIME-MASTER-002",
-                        "RIVALS-LIFETIME-MASTER-003"
-                    ]
-                }
-            }
-        };
+    <div class="selection-header">
+      <h2>Choose Your Script</h2>
+      <p>Select a product below to view features and pricing.</p>
+    </div>
 
-        // ============================================================
-        // STATE
-        // ============================================================
-        let currentGame = null; // 'mm2' or 'rivals'
-        let selectedKeys = new Set();
+    <div class="selection-grid">
+      <!-- Rivals Pro Card -->
+      <div class="selection-card">
+        <img src="9306fd08-b88d-4373-b9f6-154c063575ed.jpg" alt="AMIRI Rivals Pro" />
+        <h3>AMIRI Rivals Pro</h3>
+        <span>Precision Aimbot & ESP</span>
+        <button class="btn-select" onclick="showRivals()">View Product</button>
+      </div>
 
-        // ============================================================
-        // DOM REFS
-        // ============================================================
-        const passwordScreen = document.getElementById('passwordScreen');
-        const dashboard = document.getElementById('dashboard');
-        const passwordInput = document.getElementById('passwordInput');
-        const unlockBtn = document.getElementById('unlockBtn');
-        const errorMsg = document.getElementById('errorMsg');
-        const gameButtons = document.querySelectorAll('.game-btn');
-        const keyContent = document.getElementById('keyContent');
-        const gameTitle = document.getElementById('gameTitle');
-        const deleteBtn = document.getElementById('deleteSelectedBtn');
-        const selectAllBtn = document.getElementById('selectAllBtn');
+      <!-- MM2 Ultimate Card -->
+      <div class="selection-card">
+        <img src="watermarked_img_8760795523485273247.jpg" alt="AMIRI MM2 Ultimate" />
+        <h3>AMIRI MM2 Ultimate</h3>
+        <span>Lobby Control & Kill Aura</span>
+        <button class="btn-select" onclick="showMM2()">View Product</button>
+      </div>
+    </div>
+  </div>
 
-        // ============================================================
-        // PASSWORD LOGIC
-        // ============================================================
-        function attemptUnlock() {
-            const entered = passwordInput.value.trim();
-            if (entered === MASTER_PASSWORD) {
-                passwordScreen.style.display = 'none';
-                dashboard.style.display = 'block';
-                passwordInput.value = '';
-            } else {
-                errorMsg.classList.add('show');
-                passwordInput.value = '';
-                passwordInput.focus();
-                setTimeout(() => errorMsg.classList.remove('show'), 3000);
-            }
+  <!-- ================= RIVALS PRO PAGE ================= -->
+  <div id="rivalsProPage">
+    <div class="brand">
+      <i class="fas fa-bolt"></i>
+      <h1>AMIRI <span>| Rivals Pro</span></h1>
+      <span class="badge"><i class="fas fa-circle"></i> v1-UNDETECTED</span>
+    </div>
+    <div class="product-showcase">
+      <div class="product-image-wrapper">
+        <img src="9306fd08-b88d-4373-b9f6-154c063575ed.jpg" alt="AMIRI Rivals Pro" class="product-img" />
+      </div>
+      <div class="buy-section">
+        <h2><span class="lime-text">AMIRI</span> Rivals</h2>
+        <p class="sub"><i class="fas fa-check-circle" style="color: #b4ff5c;"></i> precision · speed · customization</p>
+        <a href="#pricingRivals" class="btn lime-bg">
+          <i class="fas fa-cart-plus"></i> Buy Now
+        </a>
+        <p style="font-size: 0.85rem; color: #7a977a;"><i class="fas fa-shield-alt"></i> instant delivery · secure</p>
+      </div>
+    </div>
+    <div class="collapse-section">
+      <div class="collapse-header" onclick="toggleCollapseRivals()">
+        <h3><i class="fas fa-bolt"></i> Key Features</h3>
+        <span class="arrow" id="arrowIconRivals"><i class="fas fa-chevron-down"></i></span>
+      </div>
+      <div class="collapse-content" id="collapseContentRivals">
+        <div class="feature-grid">
+          <div class="feature-item"><i class="fas fa-bullseye"></i> <strong>Advanced Aimbot:</strong> <span>Lock onto enemies instantly with customizable smoothing, FOV circles, target selection (Head/Torso), and prediction algorithms.</span></div>
+          <div class="feature-item"><i class="fas fa-eye"></i> <strong>Full Visual ESP:</strong> <span>See every move through walls. Displays player boxes, distance, health bars, and line-of-sight tracers in real time.</span></div>
+          <div class="feature-item"><i class="fas fa-rainbow"></i> <strong>Rainbow Gun & Custom Skins:</strong> <span>Flex on the server with smooth RGB rainbow cycles on your weapons and custom visual mods.</span></div>
+          <div class="feature-item"><i class="fas fa-rocket"></i> <strong>Fly & NoClip:</strong> <span>Bypass map boundaries, glide through terrain, and gain unfair high-ground advantages at high speeds.</span></div>
+          <div class="feature-item"><i class="fas fa-shield-virus"></i> <strong>Anti-Blind & QoL Tweaks:</strong> <span>Immunity to flashbangs and blind effects. Includes Dark Arena mode for improved contrast and visual clarity.</span></div>
+          <div class="feature-item"><i class="fas fa-sliders-h"></i> <strong>Config Manager:</strong> <span>Save and load your favorite playstyles instantly—switch between subtle closet settings and full rage modes in seconds.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-page" id="pricingRivals">
+      <h2 style="color: #e6eee6; display: flex; align-items: center; gap: 0.8rem;">
+        <i class="fas fa-tag" style="color: #b4ff5c;"></i> Choose your key
+      </h2>
+      <p style="color: #a0bfa0; margin-bottom: 0.5rem;">Secure instant access · all keys include full AMIRI Rivals Pro</p>
+      <div class="pricing-grid">
+        <div class="price-card"><div class="key-label"><i class="far fa-clock"></i> 1-day key</div><div class="price">$2.99 <small>USD</small></div><button class="btn-buy-key" onclick="alert('🔑 1-day key added (demo)')"><i class="fas fa-key"></i> Buy now</button></div>
+        <div class="price-card"><div class="key-label"><i class="far fa-calendar-alt"></i> 7-day key</div><div class="price">$4.99 <small>USD</small></div><button class="btn-buy-key" onclick="alert('🔑 7-day key added (demo)')"><i class="fas fa-key"></i> Buy now</button></div>
+        <div class="price-card"><div class="key-label"><i class="far fa-calendar-plus"></i> 30-day key</div><div class="price">$14.99 <small>USD</small></div><button class="btn-buy-key" onclick="alert('🔑 30-day key added (demo)')"><i class="fas fa-key"></i> Buy now</button></div>
+        <div class="price-card" style="border-color: #b4ff5c66;"><div class="key-label"><i class="fas fa-infinity"></i> lifetime key</div><div class="price">$24.99 <small>USD</small></div><button class="btn-buy-key" style="background: #b4ff5c; box-shadow: 0 0 16px #7fb23e55;" onclick="alert('🌟 LIFETIME key added (demo)')"><i class="fas fa-crown"></i> Buy now</button></div>
+      </div>
+    </div>
+    <div class="footer-script">
+      <div><i class="fas fa-code"></i> loadstring: <span>game:HttpGet("https://pastebin.com/raw/YOUR_RIVALS_SCRIPT_ID")</span></div>
+      <div style="display: flex; gap: 1.2rem; color: #5a7a5a;">
+        <span><i class="fas fa-circle" style="color: #b4ff5c; font-size: 0.5rem;"></i> color aimbot</span>
+        <span><i class="fas fa-circle" style="color: #b4ff5c; font-size: 0.5rem;"></i> FOV circle</span>
+        <span><i class="fas fa-circle" style="color: #b4ff5c; font-size: 0.5rem;"></i> fast config</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MM2 ULTIMATE PAGE ================= -->
+  <div id="mm2ProPage">
+    <div class="brand">
+      <i class="fas fa-bolt"></i>
+      <h1>AMIRI <span>| MM2 Ultimate</span></h1>
+      <span class="badge"><i class="fas fa-circle"></i> v1-UNDETECTED</span>
+    </div>
+    <div class="product-showcase">
+      <div class="product-image-wrapper">
+        <img src="watermarked_img_8760795523485273247.jpg" alt="AMIRI MM2 Ultimate" class="product-img" />
+      </div>
+      <div class="buy-section">
+        <h2><span class="lime-text">AMIRI</span> MM2</h2>
+        <p class="sub"><i class="fas fa-check-circle" style="color: #b4ff5c;"></i> total lobby control · zero lag</p>
+        <a href="#pricingMM2" class="btn lime-bg">
+          <i class="fas fa-cart-plus"></i> Buy Now
+        </a>
+        <p style="font-size: 0.85rem; color: #7a977a;"><i class="fas fa-shield-alt"></i> instant delivery · secure</p>
+      </div>
+    </div>
+    <div class="collapse-section">
+      <div class="collapse-header" onclick="toggleCollapseMM2()">
+        <h3><i class="fas fa-bolt"></i> Key Features</h3>
+        <span class="arrow" id="arrowIconMM2"><i class="fas fa-chevron-down"></i></span>
+      </div>
+      <div class="collapse-content" id="collapseContentMM2">
+        <div class="feature-grid">
+          <div class="feature-item"><i class="fas fa-people-arrows"></i> <strong>Comprehensive ESP:</strong> <span>Identify Murderers (Red), Sheriffs (Blue), and Innocents (Green). Includes Player Boxes, Skeleton tracking, and Dropped Gun indicators with tracer lines.</span></div>
+          <div class="feature-item"><i class="fas fa-paper-plane"></i> <strong>Advanced Movement:</strong> <span>Smooth 3D Fly, NoClip through walls, customizable Speed Booster, and Infinite Jump for unparalleled map control.</span></div>
+          <div class="feature-item"><i class="fas fa-skull"></i> <strong>Kill Aura & Silent Aim:</strong> <span>Dominate as Murderer with Kill Aura, or use Sheriff Silent Aim to take down targets instantly without suspicion.</span></div>
+          <div class="feature-item"><i class="fas fa-phone"></i> <strong>Teleportation & Auto-Grab:</strong> <span>Instantly teleport to any player, key map locations, or the dropped gun. Auto-Grab ensures you always have the weapon first.</span></div>
+          <div class="feature-item"><i class="fas fa-sync-alt"></i> <strong>Streamproof & Panic Button:</strong> <span>Fully streamproof mode to hide visuals from viewers, and a one-click panic button to instantly disable everything.</span></div>
+          <div class="feature-item"><i class="fas fa-keyboard"></i> <strong>Custom Keybinds:</strong> <span>Assign your own hotkeys for every feature—fly, teleport, ESP toggles, and more—for a fully personalized experience.</span></div>
+          <div class="feature-item"><i class="fas fa-code"></i> <strong>Optimized Performance:</strong> <span>Built with strict optimization to ensure fluid visuals and absolutely zero FPS drop during intense rounds.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-page" id="pricingMM2">
+      <h2 style="color: #e6eee6; display: flex; align-items: center; gap: 0.8rem;">
+        <i class="fas fa-tag" style="color: #b4ff5c;"></i> Choose your key
+      </h2>
+      <p style="color: #a0bfa0; margin-bottom: 0.5rem;">Secure instant access · all keys include full AMIRI MM2 Ultimate</p>
+      <div class="pricing-grid">
+        <div class="price-card"><div class="key-label"><i class="far fa-clock"></i> 1-day key</div><div class="price">$0.99 <small>USD</small></div><button class="btn-buy-key" onclick="alert('🔑 1-day key added (demo)')"><i class="fas fa-key"></i> Buy now</button></div>
+        <div class="price-card"><div class="key-label"><i class="far fa-calendar-alt"></i> 7-day key</div><div class="price">$2.99 <small>USD</small></div><button class="btn-buy-key" onclick="alert('🔑 7-day key added (demo)')"><i class="fas fa-key"></i> Buy now</button></div>
+        <div class="price-card"><div class="key-label"><i class="far fa-calendar-plus"></i> 30-day key</div><div class="price">$9.99 <small>USD</small></div><button class="btn-buy-key" onclick="alert('🔑 30-day key added (demo)')"><i class="fas fa-key"></i> Buy now</button></div>
+        <div class="price-card" style="border-color: #b4ff5c66;"><div class="key-label"><i class="fas fa-infinity"></i> lifetime key</div><div class="price">$19.99 <small>USD</small></div><button class="btn-buy-key" style="background: #b4ff5c; box-shadow: 0 0 16px #7fb23e55;" onclick="alert('🌟 LIFETIME key added (demo)')"><i class="fas fa-crown"></i> Buy now</button></div>
+      </div>
+    </div>
+    <div class="footer-script">
+      <div><i class="fas fa-code"></i> loadstring: <span>game:HttpGet("https://pastebin.com/raw/YOUR_MM2_SCRIPT_ID")</span></div>
+      <div style="display: flex; gap: 1.2rem; color: #5a7a5a;">
+        <span><i class="fas fa-circle" style="color: #b4ff5c; font-size: 0.5rem;"></i> role ESP</span>
+        <span><i class="fas fa-circle" style="color: #b4ff5c; font-size: 0.5rem;"></i> silent aim</span>
+        <span><i class="fas fa-circle" style="color: #b4ff5c; font-size: 0.5rem;"></i> fly & noclip</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ================= POPUP =================
+  function closePopup() {
+    document.getElementById('discordPopup').style.display = 'none';
+  }
+
+  // ================= NAVIGATION =================
+  function showStart() {
+    hideAllPages();
+    document.getElementById('startPage').style.display = 'block';
+    updateNav('navHome');
+  }
+  function showSelection() {
+    hideAllPages();
+    document.getElementById('productSelectionPage').style.display = 'block';
+    updateNav('navProducts');
+  }
+  function showRivals() {
+    hideAllPages();
+    document.getElementById('rivalsProPage').style.display = 'block';
+    document.getElementById('pricingRivals').style.display = 'none';
+    document.getElementById('collapseContentRivals').classList.remove('open');
+    document.getElementById('arrowIconRivals').innerHTML = '<i class="fas fa-chevron-down"></i>';
+    updateNav('navProducts');
+  }
+  function showMM2() {
+    hideAllPages();
+    document.getElementById('mm2ProPage').style.display = 'block';
+    document.getElementById('pricingMM2').style.display = 'none';
+    document.getElementById('collapseContentMM2').classList.remove('open');
+    document.getElementById('arrowIconMM2').innerHTML = '<i class="fas fa-chevron-down"></i>';
+    updateNav('navProducts');
+  }
+  function hideAllPages() {
+    document.getElementById('startPage').style.display = 'none';
+    document.getElementById('productSelectionPage').style.display = 'none';
+    document.getElementById('rivalsProPage').style.display = 'none';
+    document.getElementById('mm2ProPage').style.display = 'none';
+  }
+
+  // ================= NAV HIGHLIGHTING =================
+  function updateNav(activeId) {
+    const buttons = document.querySelectorAll('.nav-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    document.getElementById(activeId).classList.add('active');
+  }
+
+  // ================= COLLAPSES =================
+  function toggleCollapseRivals() {
+    const content = document.getElementById('collapseContentRivals');
+    const arrow = document.getElementById('arrowIconRivals');
+    content.classList.toggle('open');
+    arrow.innerHTML = content.classList.contains('open') ? '<i class="fas fa-chevron-up"></i>' : '<i class="fas fa-chevron-down"></i>';
+  }
+  function toggleCollapseMM2() {
+    const content = document.getElementById('collapseContentMM2');
+    const arrow = document.getElementById('arrowIconMM2');
+    content.classList.toggle('open');
+    arrow.innerHTML = content.classList.contains('open') ? '<i class="fas fa-chevron-up"></i>' : '<i class="fas fa-chevron-down"></i>';
+  }
+
+  // ================= PRICING CLICKS =================
+  document.querySelector('a[href="#pricingRivals"]')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('pricingRivals').style.display = 'block';
+    document.getElementById('pricingRivals').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  document.querySelector('a[href="#pricingMM2"]')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('pricingMM2').style.display = 'block';
+    document.getElementById('pricingMM2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // ================= PARTICLES (Canvas) =================
+  function initParticles() {
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    const particles = [];
+    const particleCount = 60;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 2 + 1,
+        alpha: Math.random() * 0.5 + 0.1
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(180, 255, 92, ${p.alpha})`;
+        ctx.fill();
+      });
+
+      // Connect nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(180, 255, 92, ${0.15 * (1 - dist / 150)})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
         }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
 
-        unlockBtn.addEventListener('click', attemptUnlock);
-        passwordInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') attemptUnlock();
-        });
-        window.addEventListener('load', () => passwordInput.focus());
+  // ================= ON LOAD =================
+  window.onload = function() {
+    initParticles();
 
-        // ============================================================
-        // RENDER KEYS
-        // ============================================================
-        function renderKeys() {
-            if (!currentGame) {
-                keyContent.innerHTML = `
-                    <div class="no-selection">
-                        <i class="fas fa-arrow-up"></i>
-                        Choose a game above to manage keys
-                    </div>
-                `;
-                gameTitle.innerHTML = `Select a game <span>to view keys</span>`;
-                deleteBtn.disabled = true;
-                return;
-            }
-
-            const gameData = KEY_DATA[currentGame];
-            gameTitle.innerHTML = `${gameData.label} <span>· key management</span>`;
-
-            let html = '<div class="key-sections">';
-            const sectionOrder = ['1-Day', '7-Day', '30-Day', 'Lifetime'];
-
-            for (const sectionName of sectionOrder) {
-                const keys = gameData.sections[sectionName] || [];
-                const isLifetime = sectionName === 'Lifetime';
-                html += `
-                    <div class="key-section">
-                        <div class="section-label">
-                            ${sectionName}
-                            <span class="count">${keys.length} keys</span>
-                        </div>
-                        <div class="key-list" data-section="${sectionName}">
-                `;
-                if (keys.length === 0) {
-                    html += `<div class="empty-state">No keys available</div>`;
-                } else {
-                    for (const key of keys) {
-                        const isSelected = selectedKeys.has(key);
-                        html += `
-                            <span class="key-item ${isLifetime ? 'lifetime' : ''} ${isSelected ? 'selected' : ''}" 
-                                  data-key="${key}" 
-                                  onclick="toggleKey('${key}')">
-                                ${key}
-                            </span>
-                        `;
-                    }
-                }
-                html += `</div></div>`;
-            }
-
-            html += '</div>';
-            keyContent.innerHTML = html;
-            updateDeleteBtn();
-        }
-
-        // ============================================================
-        // KEY SELECTION
-        // ============================================================
-        function toggleKey(key) {
-            if (selectedKeys.has(key)) {
-                selectedKeys.delete(key);
-            } else {
-                selectedKeys.add(key);
-            }
-            renderKeys();
-        }
-
-        function selectAllKeys() {
-            if (!currentGame) return;
-            const gameData = KEY_DATA[currentGame];
-            const allKeys = Object.values(gameData.sections).flat();
-            for (const key of allKeys) {
-                selectedKeys.add(key);
-            }
-            renderKeys();
-        }
-
-        function deleteSelectedKeys() {
-            if (selectedKeys.size === 0 || !currentGame) return;
-            if (!confirm(`Delete ${selectedKeys.size} selected key(s)? This cannot be undone.`)) return;
-
-            const gameData = KEY_DATA[currentGame];
-            for (const sectionName in gameData.sections) {
-                gameData.sections[sectionName] = gameData.sections[sectionName].filter(
-                    key => !selectedKeys.has(key)
-                );
-            }
-            selectedKeys.clear();
-            renderKeys();
-        }
-
-        function updateDeleteBtn() {
-            deleteBtn.disabled = selectedKeys.size === 0;
-            deleteBtn.textContent = `🗑️ Delete Selected (${selectedKeys.size})`;
-        }
-
-        // ============================================================
-        // GAME SELECTION
-        // ============================================================
-        gameButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const game = this.dataset.game;
-                gameButtons.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentGame = game;
-                selectedKeys.clear();
-                renderKeys();
-            });
-        });
-
-        // ============================================================
-        // BUTTON EVENTS
-        // ============================================================
-        selectAllBtn.addEventListener('click', selectAllKeys);
-        deleteBtn.addEventListener('click', deleteSelectedKeys);
-
-        // ============================================================
-        // INIT
-        // ============================================================
-        renderKeys();
-
-        // ============================================================
-        // KEYBOARD SHORTCUTS
-        // ============================================================
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'a') {
-                e.preventDefault();
-                if (dashboard.style.display === 'block') {
-                    selectAllKeys();
-                }
-            }
-            if (e.key === 'Delete' || e.key === 'Backspace') {
-                if (selectedKeys.size > 0 && dashboard.style.display === 'block') {
-                    deleteSelectedKeys();
-                }
-            }
-        });
-
-        console.log('=== AMIRI KEYS SYSTEM LOADED ===');
-        console.log('Password:', MASTER_PASSWORD);
-        console.log('Total MM2 Keys:', Object.values(KEY_DATA.mm2.sections).flat().length);
-        console.log('Total RIVALS Keys:', Object.values(KEY_DATA.rivals.sections).flat().length);
-    </script>
+    hideAllPages();
+    document.getElementById('startPage').style.display = 'block';
+    updateNav('navHome');
+    document.getElementById('pricingRivals').style.display = 'none';
+    document.getElementById('pricingMM2').style.display = 'none';
+    document.getElementById('collapseContentRivals').classList.remove('open');
+    document.getElementById('collapseContentMM2').classList.remove('open');
+    document.getElementById('arrowIconRivals').innerHTML = '<i class="fas fa-chevron-down"></i>';
+    document.getElementById('arrowIconMM2').innerHTML = '<i class="fas fa-chevron-down"></i>';
+    
+    // Show popup
+    document.getElementById('discordPopup').style.display = 'flex';
+  };
+</script>
 
 </body>
 </html>
